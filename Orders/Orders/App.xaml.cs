@@ -10,6 +10,7 @@ namespace Orders
         public App()
         {
             InitializeComponent();
+            Helpers.Constants.InitializeServiceClient();
 
             MainPage = new NavigationPage(new Products());
         }
