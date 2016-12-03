@@ -32,6 +32,18 @@ namespace Orders.ViewModels
             }
         }
 
+        private string filter;
+
+        public string Filter
+        {
+            get { return filter; }
+            set
+            {
+                filter = value;
+                OnPropertyChanged();
+                FilterProducts();
+            }
+        }
 
         public ProductsViewModel()
         {
@@ -48,10 +60,10 @@ namespace Orders.ViewModels
             Busy = true;
             try
             {
-                var products = await productsManager.GetProducts();
+                ProductsFiltered = await productsManager.GetProducts();
                 Products.Clear();
 
-                foreach (var product in products)
+                foreach (var product in ProductsFiltered)
                 {
                     Products.Add(product);
                 }
@@ -64,9 +76,34 @@ namespace Orders.ViewModels
             }
         }
 
-        public void FilterProducts(string text)
+
+        public void FilterProducts()
         {
-            var products = Products.Where(x => x.Name.Contains(text));
+            if (!string.IsNullOrWhiteSpace(Filter))
+            {
+                var products = ProductsFiltered.Where(
+                    x =>
+                        x.Name.ToLower().Contains(Filter.ToLower()) ||
+                        x.Description.ToLower().Contains(Filter.ToLower())
+                        );
+                Products.Clear();
+                foreach (var product in products)
+                {
+                    Products.Add(product);
+                }
+                Busy = false;
+            }
+            else
+            {
+                Products.Clear();
+
+                foreach (var product in ProductsFiltered)
+                {
+                    Products.Add(product);
+                }
+                Busy = false;
+            }
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
