@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Orders.Views.Product"
+             Title="Product Details">
+  <ScrollView>
+    <StackLayout Orientation="Vertical" Padding="20">
+      <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="20"></Label>
+      <StackLayout HorizontalOptions="FillAndExpand" HeightRequest="300">
+        <Image Source="icon.png" HorizontalOptions="FillAndExpand" Aspect="AspectFill" VerticalOptions="FillAndExpand"></Image>
+      </StackLayout>
+      <StackLayout Spacing="20">
+        <Label Text="{Binding Price, StringFormat='{0:C}'}"></Label>
+        <Label Text="{Binding Description}"></Label>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+          <Label Text="{Binding Quantity, StringFormat='Quantity {0}'}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"></Label>
+          <Stepper Minimum="0" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Value="{Binding Quantity}"></Stepper>
+        </StackLayout>
+        <Button Text="Add to cart"></Button>
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>

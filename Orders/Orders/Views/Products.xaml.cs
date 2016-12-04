@@ -24,6 +24,12 @@ namespace Orders.Views
 
         private void OnProductSelected(object sender, SelectedItemChangedEventArgs e)
         {
+
+            var product = (Orders.Models.Product)e.SelectedItem;
+            if (product != null)
+            {
+                Navigation.PushAsync(new Product(product));
+            }
             var x = sender as ListView;
             x.SelectedItem = null;
         }
